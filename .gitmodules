@@ -1,0 +1,3 @@
+[submodule "benchmarks/libseff/http_server/picohttpparser"]
+	path = benchmarks/libseff/http_server/picohttpparser
+	url = https://github.com/h2o/picohttpparser.git

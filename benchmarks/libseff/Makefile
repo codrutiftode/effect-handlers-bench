@@ -3,15 +3,22 @@ LIBSEFF_H   := $(LIBSEFF)/src
 LIBSEFF_LIB := $(LIBSEFF)/output/lib
 
 CC               := clang-14
-CC_COMPILE_FLAGS := -std=gnu99 -O3 -I$(LIBSEFF_H) -fsplit-stack 
+CC_COMPILE_FLAGS := -std=gnu11 -O3 -I$(LIBSEFF_H) -fsplit-stack 
 CC_WARN_FLAGS    := -Wall -Wextra \
 									  -Wformat=2 -Wno-unused-parameter -Wshadow \
 										-Wwrite-strings -Wstrict-prototypes -Wold-style-definition \
 										-Wredundant-decls -Wnested-externs -Wmissing-include-dirs
-CC_LINK_FLAGS    := -std=gnu99 -O3
+CC_LINK_FLAGS    := -std=gnu11 -O3
 
 LD         := $(shell which ld.gold)
 LD_FLAGS   := -fuse-ld=$(LD) -l:libseff.a -l:libutils.a -L$(LIBSEFF_LIB)
+
+# Make sure sub-make can see these
+export CC
+export CC_COMPILE_FLAGS
+export CC_WARN_FLAGS
+export CC_LINK_FLAGS
+export LD_FLAGS
 
 compile_cmd = $(CC)	$(CC_COMPILE_FLAGS) $(CC_WARN_FLAGS) -o main.o -c main.c
 link_cmd    = $(CC) $(CC_LINK_FLAGS) -o main main.o $(LD_FLAGS)
@@ -48,6 +55,9 @@ build:
 	$(call build_cmd, parsing_dollars)
 	$(call build_cmd, resume_nontail)
 	$(call build_cmd, handler_sieve)
+
+build_macro:
+	$(MAKE) -C http_server build
 
 clean:
 	-rm */main
