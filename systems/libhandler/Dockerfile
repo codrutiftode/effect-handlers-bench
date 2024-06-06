@@ -25,14 +25,17 @@ RUN wget https://github.com/sharkdp/hyperfine/releases/download/v1.15.0/hyperfin
 RUN sudo dpkg -i hyperfine_1.15.0_amd64.deb
 
 # Install libhandler
-RUN sudo apt install -y wget git curl gcc make m4
+RUN sudo apt install -y wget git curl gcc make m4 g++
 RUN curl -o libhandler-0.5.tar.gz -sL https://github.com/koka-lang/libhandler/archive/refs/tags/v0.5.tar.gz
 RUN tar xvf libhandler-0.5.tar.gz
 WORKDIR ./libhandler-0.5
 
-CMD ["/bin/bash" "./configure"]
-CMD ["/bin/make" "depend"]
-CMD ["/bin/make" "VARIANT=release" "main"]
+RUN ./configure 
+RUN make depend
+RUN make VARIANT=release main
+# CMD ["/bin/bash" "./configure"]
+# CMD ["/bin/make" "depend"]
+# CMD ["/bin/make" "VARIANT=release" "main"]
 
 # Final steps
 ENV DEBIAN_FRONTEND teletype
