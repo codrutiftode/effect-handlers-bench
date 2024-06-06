@@ -15,8 +15,8 @@ static lh_value handle_state_get(lh_resume r, lh_value local, lh_value arg) {
 }
 
 static const lh_operation _state_ops[] = {
-  { LH_OP_TAIL, LH_OPTAG(state, get), &handle_state_get },
-  { LH_OP_TAIL, LH_OPTAG(state, put), &handle_state_put }
+  { LH_OP_TAIL_NOOP, LH_OPTAG(state, get), &handle_state_get },
+  { LH_OP_TAIL_NOOP, LH_OPTAG(state, put), &handle_state_put }
 };
 
 static const lh_handlerdef _state_def = {
