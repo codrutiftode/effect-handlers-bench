@@ -59,6 +59,9 @@ build:
 build_macro:
 	$(MAKE) -C http_server build
 
+bench_macro: build_macro
+	$(MAKE) -C http_server bench
+
 clean:
 	-rm */main
 	-rm */expected

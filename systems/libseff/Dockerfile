@@ -24,8 +24,17 @@ RUN sudo apt-get install -y wget
 RUN wget https://github.com/sharkdp/hyperfine/releases/download/v1.15.0/hyperfine_1.15.0_amd64.deb
 RUN sudo dpkg -i hyperfine_1.15.0_amd64.deb
 
+# Install wrk2 requirements
+RUN sudo apt-get update && sudo apt-get install -y git make gcc libssl-dev libz-dev
+
+# Install wrk2
+RUN git clone https://github.com/giltene/wrk2.git
+RUN make -C "/home/ubuntu/wrk2"
+# Add wrk2 to path
+RUN sudo ln -s /home/ubuntu/wrk2/wrk /usr/bin/wrk
+
 # Download and install libseff 
-RUN sudo apt-get update && sudo apt-get install -y git python3 make clang-14
+RUN sudo apt-get update && sudo apt-get install -y python3 clang-14
 RUN git clone https://github.com/effect-handlers/libseff.git
 RUN sed -i '1,+20s/:= *debug/:= release/' "/home/ubuntu/libseff/Makefile"
 
