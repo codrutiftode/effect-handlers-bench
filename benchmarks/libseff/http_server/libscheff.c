@@ -237,7 +237,7 @@ void print_usage(char *self) {
 int main(int argc, char *argv[]) {
     const char *ip = "127.0.0.1";
     const char *port = "8082";
-    int n_threads = 8;
+    int n_threads = 1;
 
     const char *s = getenv("LIBSEFF_THREADS");
 
